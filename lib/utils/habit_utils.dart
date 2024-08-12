@@ -30,7 +30,7 @@ bool isHabitCompletedToday(List<DateTime> completedDays) {
 // }
 
 
-Map<DateTime, int> preHeatMapDataset(List<HabitModal> habits) {
+Map<DateTime, int> preHeatMapDataset(List<Habit> habits) {
   Map<DateTime, int> dataset = {};
 
   for (var habit in habits) {

@@ -12,7 +12,7 @@ class HabitDatabase extends ChangeNotifier {
 // Initialize - database
   static Future<void> initialize() async {
     final dir = await getApplicationDocumentsDirectory();
-    isar = await Isar.open([HabitModalSchema, AppSettingsSchema],
+    isar = await Isar.open([HabitSchema, AppSettingsSchema],
         directory: dir.path);
   }
 
@@ -34,14 +34,14 @@ class HabitDatabase extends ChangeNotifier {
   //crud
 
 //List of habits
-  final List<HabitModal> currentHabits = [];
+  final List<Habit> currentHabits = [];
 
   // CREATE  - add a new habit
   Future<void> addHabit(String habitName) async {
 //create a new habit
-    final newHabit = HabitModal()..name = habitName;
+    final newHabit = Habit()..name = habitName;
 //SAVE TO database
-    await isar.writeTxn(() => isar.habitModals.put(newHabit));
+    await isar.writeTxn(() => isar.habits.put(newHabit));
 
     //re - read from database
     readHabits();
@@ -52,7 +52,7 @@ class HabitDatabase extends ChangeNotifier {
   Future<void> readHabits() async {
     //fetch all habits from db
 
-    List<HabitModal> fetchedHabits = await isar.habitModals.where().findAll();
+    List<Habit> fetchedHabits = await isar.habits.where().findAll();
 
     // give to currunt habits
 
@@ -67,7 +67,7 @@ class HabitDatabase extends ChangeNotifier {
 
   Future<void> updateHabitCompletion(int id, bool isCompleted) async {
 //find the specific habit
-    final habit = await isar.habitModals.get(id);
+    final habit = await isar.habits.get(id);
 
     //update completion status
     if (habit != null) {
@@ -85,7 +85,7 @@ class HabitDatabase extends ChangeNotifier {
               date.day == DateTime.now().day);
         }
 //save the up dated
-        isar.habitModals.put(habit);
+        await isar.habits.put(habit);
       });
     }
     //reread from db
@@ -94,13 +94,13 @@ class HabitDatabase extends ChangeNotifier {
 
   // UPDATE -edit habit name
   Future<void> updateHabitName(int id, String newName) async {
-    final habit = await isar.habitModals.get(id);
+    final habit = await isar.habits.get(id);
 
     if (habit != null) {
-      isar.writeTxn(() async {
+      await isar.writeTxn(() async {
         habit.name = newName;
 
-        await isar.habitModals.put(habit);
+        await isar.habits.put(habit);
       });
     }
     readHabits();
@@ -109,7 +109,8 @@ class HabitDatabase extends ChangeNotifier {
 //DELETE -delete habit
   Future<void> deleteHabit(int id) async {
     await isar.writeTxn(() async {
-      await isar.habitModals.delete(id);
+      await isar.habits.delete(id);
     });
+    readHabits();
   }
 }

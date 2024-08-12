@@ -9,13 +9,13 @@ part of 'habit_modal.dart';
 // coverage:ignore-file
 // ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, prefer_const_constructors, lines_longer_than_80_chars, require_trailing_commas, inference_failure_on_function_invocation, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_checks, join_return_with_assignment, prefer_final_locals, avoid_js_rounded_ints, avoid_positional_boolean_parameters, always_specify_types
 
-extension GetHabitModalCollection on Isar {
-  IsarCollection<HabitModal> get habitModals => this.collection();
+extension GetHabitCollection on Isar {
+  IsarCollection<Habit> get habits => this.collection();
 }
 
-const HabitModalSchema = CollectionSchema(
-  name: r'HabitModal',
-  id: 4225345724369929802,
+const HabitSchema = CollectionSchema(
+  name: r'Habit',
+  id: 3896650575830519340,
   properties: {
     r'completedDays': PropertySchema(
       id: 0,
@@ -28,22 +28,22 @@ const HabitModalSchema = CollectionSchema(
       type: IsarType.string,
     )
   },
-  estimateSize: _habitModalEstimateSize,
-  serialize: _habitModalSerialize,
-  deserialize: _habitModalDeserialize,
-  deserializeProp: _habitModalDeserializeProp,
+  estimateSize: _habitEstimateSize,
+  serialize: _habitSerialize,
+  deserialize: _habitDeserialize,
+  deserializeProp: _habitDeserializeProp,
   idName: r'id',
   indexes: {},
   links: {},
   embeddedSchemas: {},
-  getId: _habitModalGetId,
-  getLinks: _habitModalGetLinks,
-  attach: _habitModalAttach,
+  getId: _habitGetId,
+  getLinks: _habitGetLinks,
+  attach: _habitAttach,
   version: '3.1.0+1',
 );
 
-int _habitModalEstimateSize(
-  HabitModal object,
+int _habitEstimateSize(
+  Habit object,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
@@ -53,8 +53,8 @@ int _habitModalEstimateSize(
   return bytesCount;
 }
 
-void _habitModalSerialize(
-  HabitModal object,
+void _habitSerialize(
+  Habit object,
   IsarWriter writer,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
@@ -63,20 +63,20 @@ void _habitModalSerialize(
   writer.writeString(offsets[1], object.name);
 }
 
-HabitModal _habitModalDeserialize(
+Habit _habitDeserialize(
   Id id,
   IsarReader reader,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  final object = HabitModal();
+  final object = Habit();
   object.completedDays = reader.readDateTimeList(offsets[0]) ?? [];
   object.id = id;
   object.name = reader.readString(offsets[1]);
   return object;
 }
 
-P _habitModalDeserializeProp<P>(
+P _habitDeserializeProp<P>(
   IsarReader reader,
   int propertyId,
   int offset,
@@ -92,30 +92,28 @@ P _habitModalDeserializeProp<P>(
   }
 }
 
-Id _habitModalGetId(HabitModal object) {
+Id _habitGetId(Habit object) {
   return object.id;
 }
 
-List<IsarLinkBase<dynamic>> _habitModalGetLinks(HabitModal object) {
+List<IsarLinkBase<dynamic>> _habitGetLinks(Habit object) {
   return [];
 }
 
-void _habitModalAttach(IsarCollection<dynamic> col, Id id, HabitModal object) {
+void _habitAttach(IsarCollection<dynamic> col, Id id, Habit object) {
   object.id = id;
 }
 
-extension HabitModalQueryWhereSort
-    on QueryBuilder<HabitModal, HabitModal, QWhere> {
-  QueryBuilder<HabitModal, HabitModal, QAfterWhere> anyId() {
+extension HabitQueryWhereSort on QueryBuilder<Habit, Habit, QWhere> {
+  QueryBuilder<Habit, Habit, QAfterWhere> anyId() {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(const IdWhereClause.any());
     });
   }
 }
 
-extension HabitModalQueryWhere
-    on QueryBuilder<HabitModal, HabitModal, QWhereClause> {
-  QueryBuilder<HabitModal, HabitModal, QAfterWhereClause> idEqualTo(Id id) {
+extension HabitQueryWhere on QueryBuilder<Habit, Habit, QWhereClause> {
+  QueryBuilder<Habit, Habit, QAfterWhereClause> idEqualTo(Id id) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(IdWhereClause.between(
         lower: id,
@@ -124,7 +122,7 @@ extension HabitModalQueryWhere
     });
   }
 
-  QueryBuilder<HabitModal, HabitModal, QAfterWhereClause> idNotEqualTo(Id id) {
+  QueryBuilder<Habit, Habit, QAfterWhereClause> idNotEqualTo(Id id) {
     return QueryBuilder.apply(this, (query) {
       if (query.whereSort == Sort.asc) {
         return query
@@ -146,7 +144,7 @@ extension HabitModalQueryWhere
     });
   }
 
-  QueryBuilder<HabitModal, HabitModal, QAfterWhereClause> idGreaterThan(Id id,
+  QueryBuilder<Habit, Habit, QAfterWhereClause> idGreaterThan(Id id,
       {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
@@ -155,7 +153,7 @@ extension HabitModalQueryWhere
     });
   }
 
-  QueryBuilder<HabitModal, HabitModal, QAfterWhereClause> idLessThan(Id id,
+  QueryBuilder<Habit, Habit, QAfterWhereClause> idLessThan(Id id,
       {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
@@ -164,7 +162,7 @@ extension HabitModalQueryWhere
     });
   }
 
-  QueryBuilder<HabitModal, HabitModal, QAfterWhereClause> idBetween(
+  QueryBuilder<Habit, Habit, QAfterWhereClause> idBetween(
     Id lowerId,
     Id upperId, {
     bool includeLower = true,
@@ -181,10 +179,9 @@ extension HabitModalQueryWhere
   }
 }
 
-extension HabitModalQueryFilter
-    on QueryBuilder<HabitModal, HabitModal, QFilterCondition> {
-  QueryBuilder<HabitModal, HabitModal, QAfterFilterCondition>
-      completedDaysElementEqualTo(DateTime value) {
+extension HabitQueryFilter on QueryBuilder<Habit, Habit, QFilterCondition> {
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> completedDaysElementEqualTo(
+      DateTime value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'completedDays',
@@ -193,7 +190,7 @@ extension HabitModalQueryFilter
     });
   }
 
-  QueryBuilder<HabitModal, HabitModal, QAfterFilterCondition>
+  QueryBuilder<Habit, Habit, QAfterFilterCondition>
       completedDaysElementGreaterThan(
     DateTime value, {
     bool include = false,
@@ -207,7 +204,7 @@ extension HabitModalQueryFilter
     });
   }
 
-  QueryBuilder<HabitModal, HabitModal, QAfterFilterCondition>
+  QueryBuilder<Habit, Habit, QAfterFilterCondition>
       completedDaysElementLessThan(
     DateTime value, {
     bool include = false,
@@ -221,8 +218,7 @@ extension HabitModalQueryFilter
     });
   }
 
-  QueryBuilder<HabitModal, HabitModal, QAfterFilterCondition>
-      completedDaysElementBetween(
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> completedDaysElementBetween(
     DateTime lower,
     DateTime upper, {
     bool includeLower = true,
@@ -239,8 +235,8 @@ extension HabitModalQueryFilter
     });
   }
 
-  QueryBuilder<HabitModal, HabitModal, QAfterFilterCondition>
-      completedDaysLengthEqualTo(int length) {
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> completedDaysLengthEqualTo(
+      int length) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'completedDays',
@@ -252,8 +248,7 @@ extension HabitModalQueryFilter
     });
   }
 
-  QueryBuilder<HabitModal, HabitModal, QAfterFilterCondition>
-      completedDaysIsEmpty() {
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> completedDaysIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'completedDays',
@@ -265,8 +260,7 @@ extension HabitModalQueryFilter
     });
   }
 
-  QueryBuilder<HabitModal, HabitModal, QAfterFilterCondition>
-      completedDaysIsNotEmpty() {
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> completedDaysIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'completedDays',
@@ -278,8 +272,7 @@ extension HabitModalQueryFilter
     });
   }
 
-  QueryBuilder<HabitModal, HabitModal, QAfterFilterCondition>
-      completedDaysLengthLessThan(
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> completedDaysLengthLessThan(
     int length, {
     bool include = false,
   }) {
@@ -294,7 +287,7 @@ extension HabitModalQueryFilter
     });
   }
 
-  QueryBuilder<HabitModal, HabitModal, QAfterFilterCondition>
+  QueryBuilder<Habit, Habit, QAfterFilterCondition>
       completedDaysLengthGreaterThan(
     int length, {
     bool include = false,
@@ -310,8 +303,7 @@ extension HabitModalQueryFilter
     });
   }
 
-  QueryBuilder<HabitModal, HabitModal, QAfterFilterCondition>
-      completedDaysLengthBetween(
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> completedDaysLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -328,8 +320,7 @@ extension HabitModalQueryFilter
     });
   }
 
-  QueryBuilder<HabitModal, HabitModal, QAfterFilterCondition> idEqualTo(
-      Id value) {
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> idEqualTo(Id value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'id',
@@ -338,7 +329,7 @@ extension HabitModalQueryFilter
     });
   }
 
-  QueryBuilder<HabitModal, HabitModal, QAfterFilterCondition> idGreaterThan(
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> idGreaterThan(
     Id value, {
     bool include = false,
   }) {
@@ -351,7 +342,7 @@ extension HabitModalQueryFilter
     });
   }
 
-  QueryBuilder<HabitModal, HabitModal, QAfterFilterCondition> idLessThan(
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> idLessThan(
     Id value, {
     bool include = false,
   }) {
@@ -364,7 +355,7 @@ extension HabitModalQueryFilter
     });
   }
 
-  QueryBuilder<HabitModal, HabitModal, QAfterFilterCondition> idBetween(
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> idBetween(
     Id lower,
     Id upper, {
     bool includeLower = true,
@@ -381,7 +372,7 @@ extension HabitModalQueryFilter
     });
   }
 
-  QueryBuilder<HabitModal, HabitModal, QAfterFilterCondition> nameEqualTo(
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> nameEqualTo(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -394,7 +385,7 @@ extension HabitModalQueryFilter
     });
   }
 
-  QueryBuilder<HabitModal, HabitModal, QAfterFilterCondition> nameGreaterThan(
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> nameGreaterThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -409,7 +400,7 @@ extension HabitModalQueryFilter
     });
   }
 
-  QueryBuilder<HabitModal, HabitModal, QAfterFilterCondition> nameLessThan(
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> nameLessThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -424,7 +415,7 @@ extension HabitModalQueryFilter
     });
   }
 
-  QueryBuilder<HabitModal, HabitModal, QAfterFilterCondition> nameBetween(
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> nameBetween(
     String lower,
     String upper, {
     bool includeLower = true,
@@ -443,7 +434,7 @@ extension HabitModalQueryFilter
     });
   }
 
-  QueryBuilder<HabitModal, HabitModal, QAfterFilterCondition> nameStartsWith(
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> nameStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -456,7 +447,7 @@ extension HabitModalQueryFilter
     });
   }
 
-  QueryBuilder<HabitModal, HabitModal, QAfterFilterCondition> nameEndsWith(
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> nameEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -469,8 +460,7 @@ extension HabitModalQueryFilter
     });
   }
 
-  QueryBuilder<HabitModal, HabitModal, QAfterFilterCondition> nameContains(
-      String value,
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> nameContains(String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
@@ -481,8 +471,7 @@ extension HabitModalQueryFilter
     });
   }
 
-  QueryBuilder<HabitModal, HabitModal, QAfterFilterCondition> nameMatches(
-      String pattern,
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> nameMatches(String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
@@ -493,7 +482,7 @@ extension HabitModalQueryFilter
     });
   }
 
-  QueryBuilder<HabitModal, HabitModal, QAfterFilterCondition> nameIsEmpty() {
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> nameIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'name',
@@ -502,7 +491,7 @@ extension HabitModalQueryFilter
     });
   }
 
-  QueryBuilder<HabitModal, HabitModal, QAfterFilterCondition> nameIsNotEmpty() {
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> nameIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'name',
@@ -512,63 +501,58 @@ extension HabitModalQueryFilter
   }
 }
 
-extension HabitModalQueryObject
-    on QueryBuilder<HabitModal, HabitModal, QFilterCondition> {}
+extension HabitQueryObject on QueryBuilder<Habit, Habit, QFilterCondition> {}
 
-extension HabitModalQueryLinks
-    on QueryBuilder<HabitModal, HabitModal, QFilterCondition> {}
+extension HabitQueryLinks on QueryBuilder<Habit, Habit, QFilterCondition> {}
 
-extension HabitModalQuerySortBy
-    on QueryBuilder<HabitModal, HabitModal, QSortBy> {
-  QueryBuilder<HabitModal, HabitModal, QAfterSortBy> sortByName() {
+extension HabitQuerySortBy on QueryBuilder<Habit, Habit, QSortBy> {
+  QueryBuilder<Habit, Habit, QAfterSortBy> sortByName() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'name', Sort.asc);
     });
   }
 
-  QueryBuilder<HabitModal, HabitModal, QAfterSortBy> sortByNameDesc() {
+  QueryBuilder<Habit, Habit, QAfterSortBy> sortByNameDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'name', Sort.desc);
     });
   }
 }
 
-extension HabitModalQuerySortThenBy
-    on QueryBuilder<HabitModal, HabitModal, QSortThenBy> {
-  QueryBuilder<HabitModal, HabitModal, QAfterSortBy> thenById() {
+extension HabitQuerySortThenBy on QueryBuilder<Habit, Habit, QSortThenBy> {
+  QueryBuilder<Habit, Habit, QAfterSortBy> thenById() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.asc);
     });
   }
 
-  QueryBuilder<HabitModal, HabitModal, QAfterSortBy> thenByIdDesc() {
+  QueryBuilder<Habit, Habit, QAfterSortBy> thenByIdDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.desc);
     });
   }
 
-  QueryBuilder<HabitModal, HabitModal, QAfterSortBy> thenByName() {
+  QueryBuilder<Habit, Habit, QAfterSortBy> thenByName() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'name', Sort.asc);
     });
   }
 
-  QueryBuilder<HabitModal, HabitModal, QAfterSortBy> thenByNameDesc() {
+  QueryBuilder<Habit, Habit, QAfterSortBy> thenByNameDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'name', Sort.desc);
     });
   }
 }
 
-extension HabitModalQueryWhereDistinct
-    on QueryBuilder<HabitModal, HabitModal, QDistinct> {
-  QueryBuilder<HabitModal, HabitModal, QDistinct> distinctByCompletedDays() {
+extension HabitQueryWhereDistinct on QueryBuilder<Habit, Habit, QDistinct> {
+  QueryBuilder<Habit, Habit, QDistinct> distinctByCompletedDays() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'completedDays');
     });
   }
 
-  QueryBuilder<HabitModal, HabitModal, QDistinct> distinctByName(
+  QueryBuilder<Habit, Habit, QDistinct> distinctByName(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'name', caseSensitive: caseSensitive);
@@ -576,22 +560,21 @@ extension HabitModalQueryWhereDistinct
   }
 }
 
-extension HabitModalQueryProperty
-    on QueryBuilder<HabitModal, HabitModal, QQueryProperty> {
-  QueryBuilder<HabitModal, int, QQueryOperations> idProperty() {
+extension HabitQueryProperty on QueryBuilder<Habit, Habit, QQueryProperty> {
+  QueryBuilder<Habit, int, QQueryOperations> idProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'id');
     });
   }
 
-  QueryBuilder<HabitModal, List<DateTime>, QQueryOperations>
+  QueryBuilder<Habit, List<DateTime>, QQueryOperations>
       completedDaysProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'completedDays');
     });
   }
 
-  QueryBuilder<HabitModal, String, QQueryOperations> nameProperty() {
+  QueryBuilder<Habit, String, QQueryOperations> nameProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'name');
     });

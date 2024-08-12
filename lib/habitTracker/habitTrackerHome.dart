@@ -22,48 +22,119 @@ class _habitTrackerState extends State<habitTracker> {
 
     super.initState();
   }
+ final TextEditingController textEditingController = TextEditingController();
+
+//create new habit
+  void createNewHabit() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        content: TextField(
+          controller: textEditingController,
+          decoration: InputDecoration(hintText: "Create a new Habits"),
+        ),
+        actions: [
+          MaterialButton(
+            onPressed: () {
+              String newHabitName = textEditingController.text;
+
+              context.read<HabitDatabase>().addHabit(newHabitName);
+
+              Navigator.of(context).pop();
+
+              textEditingController.clear();
+            },
+            child: Text('Save'),
+          ),
+          MaterialButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+
+              textEditingController.clear();
+            },
+            child: Text('Cancel'),
+          )
+        ],
+      ),
+    );
+  }
+  void checkHabitOnOff(bool? value, Habit habit) {
+    // update habit completion status
+    if (value != null) {
+      context.read<HabitDatabase>().updateHabitCompletion(habit.id, value);
+    }
+  }
+
+  //check habit on off
+  // edit habit box
+
+ void editHabitBox(Habit habit) {
+
+    textEditingController.text = habit.name;
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        content: TextField(
+          controller: textEditingController,
+        ),
+        actions: [
+          MaterialButton(
+            onPressed: () {
+              String newHabitName = textEditingController.text;
+
+              context
+                  .read<HabitDatabase>()
+                  .updateHabitName(habit.id, newHabitName);
+
+              Navigator.pop(context);
+
+              textEditingController.clear();
+            },
+            child: Text('Save'),
+          ),
+          MaterialButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+
+              textEditingController.clear();
+            },
+            child: Text('Cancel'),
+          )
+        ],
+      ),
+    );
+  }
+
+ void  deleteHabitBox(Habit habit) {
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Are you sure you want to delete?'),
+        actions: [
+          MaterialButton(
+            onPressed: () {
+              context.read<HabitDatabase>().deleteHabit(habit.id);
+
+
+            },
+            child: Text('Delete'),
+          ),
+          MaterialButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text('Cancel'),
+          )
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController textEditingController = TextEditingController();
 
-    //create new habit
-    void createNewHabit() {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          content: TextField(
-            controller: textEditingController,
-            decoration: InputDecoration(hintText: "Create a new Habits"),
-          ),
-          actions: [
-            MaterialButton(
-              onPressed: () {
-                String newHabitName = textEditingController.text;
 
-                context.read<HabitDatabase>().addHabit(newHabitName);
-
-                Navigator.of(context).pop();
-
-                textEditingController.clear();
-              },
-              child: Text('Save'),
-            ),
-            MaterialButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-
-                textEditingController.clear();
-              },
-              child: Text('Cancel'),
-            )
-          ],
-        ),
-      );
-    }
-
-    //check habit on off
-    // edit habit box
 
     return Scaffold(
       appBar: AppBar(
@@ -91,7 +162,7 @@ class _habitTrackerState extends State<habitTracker> {
     final habitDatabase = context.watch<HabitDatabase>();
 
     //   current habit
-    List<HabitModal> currentHabit = habitDatabase.currentHabits;
+    List<Habit> currentHabit = habitDatabase.currentHabits;
 
     //   return heat map UI
     return FutureBuilder<DateTime?>(
@@ -112,27 +183,11 @@ class _habitTrackerState extends State<habitTracker> {
     );
   }
 
-// Widget _buildHabitMap()
-// {
-//   final habitDatabase=context.watch<HabitDatabase>();
-//   List<HabitModal> currentHabits = habitDatabase.currentHabits;
-//   return FutureBuilder<DateTime?>(future: habitDatabase.getFirstLaunchDate(), builder: (context, snapshot) {
-// if(snapshot.hasData)
-//   {
-//     return MyHabitMap(startDate: snapshot.data!, datasets: prepHeatMapDataset(currentHabits));
-//   }
-// else
-//   {
-//     return Container();
-//   }
-//   },
-//   );
-//
-// }
+
   Widget _buildHabitList() {
     final habitDatabase = context.watch<HabitDatabase>();
 
-    List<HabitModal> currentHabits = habitDatabase.currentHabits;
+    List<Habit> currentHabits = habitDatabase.currentHabits;
     return ListView.builder(
       itemCount: currentHabits.length,
       shrinkWrap: true,
@@ -146,82 +201,13 @@ class _habitTrackerState extends State<habitTracker> {
           isCompleted: isCompletedToday,
           text: habit.name,
           onChanged: (value) => checkHabitOnOff(value, habit),
-          editHabit: (context) => editHabit(habit),
-          deleteHabit: (context) => deleteHabit(habit),
+          editHabit: (context) => editHabitBox(habit),
+          deleteHabit: (context) => deleteHabitBox(habit),
         );
       },
     );
   }
 
-  editHabit(HabitModal habit) {
-    var textEditingController;
-    textEditingController.text = habit.name;
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        content: TextField(
-          controller: textEditingController,
-        ),
-        actions: [
-          MaterialButton(
-            onPressed: () {
-              String newHabitName = textEditingController.text;
 
-              context
-                  .read<HabitDatabase>()
-                  .updateHabitName(habit.id, newHabitName);
 
-              Navigator.of(context).pop();
-
-              textEditingController.clear();
-            },
-            child: Text('Save'),
-          ),
-          MaterialButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-
-              textEditingController.clear();
-            },
-            child: Text('Cancel'),
-          )
-        ],
-      ),
-    );
-  }
-
-  deleteHabit(HabitModal habit) {
-    var textEditingController;
-    textEditingController.text = habit.name;
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Are you sure you want to delete?'),
-        actions: [
-          MaterialButton(
-            onPressed: () {
-              context.read<HabitDatabase>().deleteHabit(habit.id);
-
-              Navigator.of(context).pop();
-
-              textEditingController.clear();
-            },
-            child: Text('Delete'),
-          ),
-          MaterialButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: Text('Cancel'),
-          )
-        ],
-      ),
-    );
-  }
-
-  checkHabitOnOff(bool? value, HabitModal habit) {
-    if (value != null) {
-      context.read<HabitDatabase>().updateHabitCompletion(habit.id, value);
-    }
-  }
 }
