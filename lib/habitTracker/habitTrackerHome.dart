@@ -6,7 +6,10 @@ import 'package:minimal_habit_tracker_flutter/componets/my_habit_tile/my_habit_t
 import 'package:minimal_habit_tracker_flutter/modal/habit_modal.dart';
 import 'package:provider/provider.dart';
 
+import '../provider/theme_provider.dart';
 import '../utils/habit_utils.dart';
+
+final TextEditingController textEditingController = TextEditingController();
 
 class habitTracker extends StatefulWidget {
   //const habitTracker({super.key});
@@ -22,7 +25,6 @@ class _habitTrackerState extends State<habitTracker> {
 
     super.initState();
   }
- final TextEditingController textEditingController = TextEditingController();
 
 //create new habit
   void createNewHabit() {
@@ -58,6 +60,7 @@ class _habitTrackerState extends State<habitTracker> {
       ),
     );
   }
+
   void checkHabitOnOff(bool? value, Habit habit) {
     // update habit completion status
     if (value != null) {
@@ -68,8 +71,7 @@ class _habitTrackerState extends State<habitTracker> {
   //check habit on off
   // edit habit box
 
- void editHabitBox(Habit habit) {
-
+  void editHabitBox(Habit habit) {
     textEditingController.text = habit.name;
     showDialog(
       context: context,
@@ -105,8 +107,7 @@ class _habitTrackerState extends State<habitTracker> {
     );
   }
 
- void  deleteHabitBox(Habit habit) {
-
+  void deleteHabitBox(Habit habit) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -116,7 +117,7 @@ class _habitTrackerState extends State<habitTracker> {
             onPressed: () {
               context.read<HabitDatabase>().deleteHabit(habit.id);
 
-
+              Navigator.pop(context);
             },
             child: Text('Delete'),
           ),
@@ -133,19 +134,31 @@ class _habitTrackerState extends State<habitTracker> {
 
   @override
   Widget build(BuildContext context) {
-
-
-
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text('Habit Tracker')),
+        title: Center(child: Text('Habit Tracker',
+        style: TextStyle(
+          color: Color(0xff132a66)
+        ),)),
         elevation: 0,
         backgroundColor: Colors.transparent,
         foregroundColor: Theme.of(context).colorScheme.inverseSurface,
+        actions: [
+          IconButton(
+            icon: Icon(
+              Provider.of<ThemeProvider>(context).isDarkMode
+                  ? Icons.dark_mode
+                  : Icons.light_mode,
+            ),
+            onPressed: () {
+              Provider.of<ThemeProvider>(context, listen: false).toggleTheme();
+            },
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: createNewHabit,
-        backgroundColor: Theme.of(context).colorScheme.surface,
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         child: Icon(Icons.add),
       ),
       body: ListView(
@@ -170,7 +183,7 @@ class _habitTrackerState extends State<habitTracker> {
       builder: (context, snapshot) {
         // once the data  is available -> build heatmap
         if (snapshot.hasData) {
-          return MyHeatMap(
+          return MyHabitMap(
               startDate: snapshot.data!,
               datasets: preHeatMapDataset(currentHabit));
         }
@@ -182,7 +195,6 @@ class _habitTrackerState extends State<habitTracker> {
       },
     );
   }
-
 
   Widget _buildHabitList() {
     final habitDatabase = context.watch<HabitDatabase>();
@@ -207,7 +219,5 @@ class _habitTrackerState extends State<habitTracker> {
       },
     );
   }
-
-
-
 }
+//061d5c
