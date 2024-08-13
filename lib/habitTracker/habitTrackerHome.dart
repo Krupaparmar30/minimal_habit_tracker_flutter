@@ -138,7 +138,10 @@ class _habitTrackerState extends State<habitTracker> {
       appBar: AppBar(
         title: Center(child: Text('Habit Tracker',
         style: TextStyle(
-          color: Color(0xff132a66)
+          color:Provider.of<ThemeProvider>(context).isDarkMode
+              ? Colors.white
+              : Color(0xff132a66),
+          //Color(0xff132a66)
         ),)),
         elevation: 0,
         backgroundColor: Colors.transparent,
@@ -158,7 +161,7 @@ class _habitTrackerState extends State<habitTracker> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: createNewHabit,
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: Theme.of(context).colorScheme.secondary,
         child: Icon(Icons.add),
       ),
       body: ListView(

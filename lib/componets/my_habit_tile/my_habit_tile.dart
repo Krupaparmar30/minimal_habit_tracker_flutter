@@ -50,7 +50,7 @@ class MyHabitTile extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
                 color: isCompleted
-                    ? Theme.of(context).colorScheme.primary
+                    ? Theme.of(context).colorScheme.secondary
                     : Theme.of(context).colorScheme.secondary,
                 borderRadius: BorderRadius.circular(8)),
             child: ListTile(
