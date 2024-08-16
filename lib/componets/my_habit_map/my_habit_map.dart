@@ -19,9 +19,9 @@ class MyHabitMap extends StatelessWidget {
         endDate: DateTime.now(),
         datasets: datasets,
         colorMode: ColorMode.color,
-        defaultColor: Colors.grey.shade200,
+        defaultColor: Colors.white70,
         textColor: Provider.of<ThemeProvider>(context).isDarkMode
-            ? Colors.grey.shade900
+            ? Colors.white
             : Color(0xff354a7f),
         showColorTip: false,
         showText: true,
@@ -31,8 +31,8 @@ class MyHabitMap extends StatelessWidget {
           1: Colors.blue.shade100,
           2: Colors.blue.shade200,
           3: Colors.blue.shade200,
-          2: Colors.blue.shade200,
-          3: Colors.blue.shade100,
+          4: Colors.blue.shade200,
+          5: Colors.blue.shade100,
         });
   }
 }

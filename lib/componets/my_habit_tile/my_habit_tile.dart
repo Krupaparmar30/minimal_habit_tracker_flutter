@@ -51,15 +51,15 @@ class MyHabitTile extends StatelessWidget {
             decoration: BoxDecoration(
                 color: isCompleted
                     ? Theme.of(context).colorScheme.secondary
-                    : Theme.of(context).colorScheme.secondary,
+                    :Colors.white,
                 borderRadius: BorderRadius.circular(8)),
             child: ListTile(
               title: Text(
                 text,
                 style: TextStyle(
                     color: isCompleted
-                        ? Colors.white
-                        : Theme.of(context).colorScheme.inversePrimary),
+                        ? Colors.grey.shade50
+                        : Theme.of(context).colorScheme.primary),
               ),
               leading: Checkbox(
                 focusColor: Colors.white,

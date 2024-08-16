@@ -39,6 +39,7 @@ import 'package:provider/provider.dart';
 
 import 'DataBase/habit_database.dart';
 import 'habitTracker/habitTrackerHome.dart';
+import 'habitTracker/spelsh_scree.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -72,8 +73,8 @@ class MyApp extends StatelessWidget {
       title: 'Habit Tracker',
       debugShowCheckedModeBanner: false,
       routes: {
-        // '/':(context)=>SplashSceen(),
-        '/': (context) => habitTracker()
+        '/':(context)=>spleshPage(),
+        '/sec': (context) => habitTracker()
       },
       theme: Provider.of<ThemeProvider>(context).themeData,
     );

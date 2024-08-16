@@ -136,13 +136,16 @@ class _habitTrackerState extends State<habitTracker> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text('Habit Tracker',
-        style: TextStyle(
-          color:Provider.of<ThemeProvider>(context).isDarkMode
-              ? Colors.white
-              : Color(0xff132a66),
-          //Color(0xff132a66)
-        ),)),
+        title: Center(
+            child: Text(
+          'Habit Tracker',
+          style: TextStyle(
+            color: Provider.of<ThemeProvider>(context).isDarkMode
+                ? Colors.white
+                : Color(0xff132a66),
+            //Color(0xff132a66)
+          ),
+        )),
         elevation: 0,
         backgroundColor: Colors.transparent,
         foregroundColor: Theme.of(context).colorScheme.inverseSurface,
@@ -188,7 +191,10 @@ class _habitTrackerState extends State<habitTracker> {
         if (snapshot.hasData) {
           return MyHabitMap(
               startDate: snapshot.data!,
-              datasets: preHeatMapDataset(currentHabit));
+              datasets: preHeatMapDataset(currentHabit)
+
+
+          );
         }
 
         //   handle case where no da ta is returned
