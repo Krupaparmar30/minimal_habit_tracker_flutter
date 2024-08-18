@@ -18,6 +18,13 @@ A new Flutter project.
 
 👉 Remove Habit: Delete a habit from the list if it is no longer relevant or has been completed.
 
+👉 ⚙️ Technologies Used
+
+ * Flutter A powerful UI toolkit for crafting natively compiled applications for mobile, web, and desktop from a single codebase.
+ * GetX For state management, navigation, and dependency injection.
+ * flutter_heatmap_calendar  To create and customize the heat map for habit tracking.
+ * simple_gradient_text To apply gradient effects to text elements within the app.
+ * Isar Database  For lightweight and high-performance local data storage.
 
 <p>
   <img src="https://github.com/user-attachments/assets/60f8c900-466f-488b-9225-2a4cddfc8f19" height=28% width=32%>
