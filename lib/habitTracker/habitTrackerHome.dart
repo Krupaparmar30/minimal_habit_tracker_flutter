@@ -135,7 +135,9 @@ class _habitTrackerState extends State<habitTracker> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       appBar: AppBar(
+
         title: Center(
             child: Text(
           'Habit Tracker',
@@ -170,6 +172,9 @@ class _habitTrackerState extends State<habitTracker> {
       body: ListView(
         children: [
           _buildHabitMap(),
+          SizedBox(
+            height: 20,
+          ),
           _buildHabitList(),
         ],
       ),
@@ -191,6 +196,7 @@ class _habitTrackerState extends State<habitTracker> {
         if (snapshot.hasData) {
           return MyHabitMap(
               startDate: snapshot.data!,
+
               datasets: preHeatMapDataset(currentHabit)
 
 
@@ -207,7 +213,6 @@ class _habitTrackerState extends State<habitTracker> {
 
   Widget _buildHabitList() {
     final habitDatabase = context.watch<HabitDatabase>();
-
     List<Habit> currentHabits = habitDatabase.currentHabits;
     return ListView.builder(
       itemCount: currentHabits.length,

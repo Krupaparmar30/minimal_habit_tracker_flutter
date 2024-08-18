@@ -16,7 +16,7 @@ class MyHabitMap extends StatelessWidget {
   Widget build(BuildContext context) {
     return HeatMap(
         startDate: startDate,
-        endDate: DateTime.now(),
+        endDate: DateTime.now().add(Duration(days: 13)),
         datasets: datasets,
         colorMode: ColorMode.color,
         defaultColor: Colors.white70,
@@ -26,13 +26,18 @@ class MyHabitMap extends StatelessWidget {
         showColorTip: false,
         showText: true,
         scrollable: true,
+        borderRadius: 8.0,
         size: 32,
+        margin: EdgeInsets.all(8.0),
         colorsets: {
           1: Colors.blue.shade100,
           2: Colors.blue.shade200,
           3: Colors.blue.shade200,
           4: Colors.blue.shade200,
           5: Colors.blue.shade100,
-        });
+        }
+
+
+        );
   }
 }

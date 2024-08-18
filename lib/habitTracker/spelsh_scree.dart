@@ -22,7 +22,26 @@ class spleshPage extends StatelessWidget {
 
                     image: DecorationImage(
                       fit: BoxFit.cover,
-                        image: AssetImage('assets/images/habit.png'))),
+                        image: AssetImage('assets/hab.png'))),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 600,left: 20),
+                      child: Text('Habitat',style: TextStyle(
+                        color: Colors.blue.shade700,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 32,
+                        letterSpacing: 2
+                      ),),
+                    ),
+                    Text('Build Habits And Routines',style: TextStyle(
+                        color: Colors.blue.shade700,
+
+                        fontSize: 18,
+                        letterSpacing: 2
+                    ),),
+                  ],
+                ),
               ),
             )
           ],
