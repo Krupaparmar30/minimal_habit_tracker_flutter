@@ -1,6 +1,23 @@
 # minimal_habit_tracker_flutter
 
+
 A new Flutter project.
+
+# Purpose:
+
+👉 Objective: To help you build or break habits by tracking your consistency and progress over a 30-day period.
+👉 Focus Areas: Can be used for various goals, such as improving productivity, health, or personal growth.
+
+1 . Updating Habits:
+
+👉 Modify Habit Details: Easily update habit frequency, name, and description from the habit settings.
+👉 Adjust Frequency: Change how often a habit should be completed (daily, weekly, etc.) or the specific times for completion.
+👉 Update Goals: Revise goals and targets as progress is made or priorities change.
+
+2.Deleting Habits:
+
+👉 Remove Habit: Delete a habit from the list if it is no longer relevant or has been completed.
+
 
 <p>
   <img src="https://github.com/user-attachments/assets/60f8c900-466f-488b-9225-2a4cddfc8f19" height=28% width=32%>
